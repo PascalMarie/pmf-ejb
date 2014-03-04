@@ -2,8 +2,8 @@ package com.pmf.service;
 
 import java.util.List;
 
-import com.pmf.modele.Formation;
-import com.pmf.modele.Stagiaire;
+import com.pmf.modele.old.Formation;
+import com.pmf.modele.old.Stagiaire;
 import com.pmf.service.exception.TableauFormationsVide;
 
 public interface ServiceFormation {

@@ -7,7 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
-import com.pmf.modele.Utilisateur;
+import com.pmf.modele.old.Utilisateur;
 import com.pmf.service.UtilisateurService;
 
 @Path("user")

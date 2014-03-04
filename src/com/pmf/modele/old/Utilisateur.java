@@ -1,4 +1,4 @@
-package com.pmf.modele;
+package com.pmf.modele.old;
 
 import javax.annotation.Generated;
 import javax.persistence.Entity;

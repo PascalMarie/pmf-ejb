@@ -1,139 +1,166 @@
 package com.pmf.modele;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
 
-public class Formation {
-	protected String nomFormation;
-	protected String lieu;
-	protected String description;
-	protected Date dateDebut;
-	protected Date dateFin;
-	protected Integer nbHeure;
-	protected String preRequis;
-	protected Organisme organisme;
-	protected List<Stagiaire> listeStagiaires;
-	protected List<Integer> listeNotes;
 
-	public Formation(String nomFormation, String lieu, String description,
-			Date dateDebut, Date dateFin, Integer nbHeure, String preRequis,
-			Organisme organisme, List<Stagiaire> listeStagiaires, List<Integer> listeNotes) {
-		super();
-		this.nomFormation = nomFormation;
-		this.lieu = lieu;
-		this.description = description;
+/**
+ * The persistent class for the formation database table.
+ * 
+ */
+@Entity
+@NamedQuery(name="Formation.findAll", query="SELECT f FROM Formation f")
+public class Formation implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idFormation;
+
+	private String dateDebut;
+
+	private String dateFin;
+
+	private String description;
+
+	private String lieu;
+
+	private String nbHeure;
+
+	private String nomFormation;
+
+	private String preRequis;
+
+	//bi-directional many-to-one association to Evaluation
+	@OneToMany(mappedBy="formation")
+	private List<Evaluation> evaluations;
+
+	//bi-directional many-to-one association to Organisme
+	@ManyToOne
+	private Organisme organisme;
+
+	//bi-directional many-to-one association to Inscription
+	@OneToMany(mappedBy="formation")
+	private List<Inscription> inscriptions;
+
+	public Formation() {
+	}
+
+	public int getIdFormation() {
+		return this.idFormation;
+	}
+
+	public void setIdFormation(int idFormation) {
+		this.idFormation = idFormation;
+	}
+
+	public String getDateDebut() {
+		return this.dateDebut;
+	}
+
+	public void setDateDebut(String dateDebut) {
 		this.dateDebut = dateDebut;
+	}
+
+	public String getDateFin() {
+		return this.dateFin;
+	}
+
+	public void setDateFin(String dateFin) {
 		this.dateFin = dateFin;
-		this.nbHeure = nbHeure;
-		this.preRequis = preRequis;
-		this.organisme = organisme;
-		this.listeStagiaires = listeStagiaires;
-		this.listeNotes = listeNotes;
 	}
-
-	public String getNomFormation() {
-		return nomFormation;
-	}
-
-
-	public void setNomFormation(String nomFormation) {
-		this.nomFormation = nomFormation;
-	}
-
-
-	public String getLieu() {
-		return lieu;
-	}
-
-
-	public void setLieu(String lieu) {
-		this.lieu = lieu;
-	}
-
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
-
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-
-	public Date getDateDebut() {
-		return dateDebut;
+	public String getLieu() {
+		return this.lieu;
 	}
 
-
-	public void setDateDebut(Date dateDebut) {
-		this.dateDebut = dateDebut;
+	public void setLieu(String lieu) {
+		this.lieu = lieu;
 	}
 
-
-	public Date getDateFin() {
-		return dateFin;
+	public String getNbHeure() {
+		return this.nbHeure;
 	}
 
-
-	public void setDateFin(Date dateFin) {
-		this.dateFin = dateFin;
-	}
-
-
-	public Integer getNbHeure() {
-		return nbHeure;
-	}
-
-
-	public void setNbHeure(Integer nbHeure) {
+	public void setNbHeure(String nbHeure) {
 		this.nbHeure = nbHeure;
 	}
 
-
-	public String getPreRequis() {
-		return preRequis;
+	public String getNomFormation() {
+		return this.nomFormation;
 	}
 
+	public void setNomFormation(String nomFormation) {
+		this.nomFormation = nomFormation;
+	}
+
+	public String getPreRequis() {
+		return this.preRequis;
+	}
 
 	public void setPreRequis(String preRequis) {
 		this.preRequis = preRequis;
 	}
 
-
-	public Organisme getOrganisme() {
-		return organisme;
+	public List<Evaluation> getEvaluations() {
+		return this.evaluations;
 	}
 
+	public void setEvaluations(List<Evaluation> evaluations) {
+		this.evaluations = evaluations;
+	}
+
+	public Evaluation addEvaluation(Evaluation evaluation) {
+		getEvaluations().add(evaluation);
+		evaluation.setFormation(this);
+
+		return evaluation;
+	}
+
+	public Evaluation removeEvaluation(Evaluation evaluation) {
+		getEvaluations().remove(evaluation);
+		evaluation.setFormation(null);
+
+		return evaluation;
+	}
+
+	public Organisme getOrganisme() {
+		return this.organisme;
+	}
 
 	public void setOrganisme(Organisme organisme) {
 		this.organisme = organisme;
 	}
 
-	public List<Stagiaire> getListeStagiaires() {
-		return listeStagiaires;
+	public List<Inscription> getInscriptions() {
+		return this.inscriptions;
 	}
 
-	public void setListeStagiaires(List<Stagiaire> listeStagiaires) {
-		this.listeStagiaires = listeStagiaires;
+	public void setInscriptions(List<Inscription> inscriptions) {
+		this.inscriptions = inscriptions;
 	}
 
-	public List<Integer> getListeNotes() {
-		return listeNotes;
+	public Inscription addInscription(Inscription inscription) {
+		getInscriptions().add(inscription);
+		inscription.setFormation(this);
+
+		return inscription;
 	}
 
-	public void setListeNotes(List<Integer> listeNotes) {
-		this.listeNotes = listeNotes;
+	public Inscription removeInscription(Inscription inscription) {
+		getInscriptions().remove(inscription);
+		inscription.setFormation(null);
+
+		return inscription;
 	}
 
-	@Override
-	public String toString() {
-		final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		return "-------------\nnom formation : " + nomFormation + "\n" + "lieu : "
-				+ lieu + "\n" + "description : " + description + "\n"
-		 + "date de debut : " + ((dateDebut!=null)?simpleDateFormat.format(dateDebut):"") + "\n"
-		 + "date de fin : " + simpleDateFormat.format(dateFin);
-		// TODO vérifier date nulle
-		
-	}
 }

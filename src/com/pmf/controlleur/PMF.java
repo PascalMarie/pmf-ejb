@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.pmf.modele.Formation;
-import com.pmf.modele.Organisme;
-import com.pmf.modele.Stagiaire;
+import com.pmf.modele.old.Formation;
+import com.pmf.modele.old.Organisme;
+import com.pmf.modele.old.Stagiaire;
 import com.pmf.service.ServiceFormation;
 import com.pmf.service.ServiceStagiaire;
 import com.pmf.service.exception.TableauFormationsVide;

@@ -13,7 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transaction;
 
-import com.pmf.modele.Utilisateur;
+import com.pmf.modele.old.Utilisateur;
 
 @Singleton
 @Startup

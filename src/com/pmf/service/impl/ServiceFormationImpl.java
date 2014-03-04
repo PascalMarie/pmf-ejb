@@ -6,8 +6,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pmf.modele.Formation;
-import com.pmf.modele.Stagiaire;
+import com.pmf.modele.old.Formation;
+import com.pmf.modele.old.Stagiaire;
 import com.pmf.service.ServiceFormation;
 import com.pmf.service.exception.TableauFormationsVide;
 
